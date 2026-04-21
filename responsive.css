@@ -28,7 +28,7 @@
    }
 
    #second-container {
-     width: min(91.2%, 470px);
+     width: min(91.4%, 470px);
      padding-top: 10px;
    }
 
@@ -119,9 +119,11 @@
      gap: clamp(9px, calc(9px + (100vw - 360px) * 0.1), 11px);
    }
 
+   #container-left{display: none;}                                                                                                                     
+
    /* Wrapper Card on dark background */
    .index #container-right .wrapper {
-     width: clamp(80px, calc(min(26vw, 90px) + max(0px, (100vw - 360px)) * 0.21), 105px);
+     width: clamp(80px, calc(min(26vw, 90px) + max(0px, (100vw - 360px)) * 0.24), 105px);
      gap: clamp(4px, min(calc(4px + (100vw - 300px) * 0.045), calc(4px + (100vh - 250px) * 0.025)), 14px) 0;
      padding: clamp(12px, min(calc(12px + (100vw - 360px) * 0.07), calc(12px + (100vh - 550px) * 0.07)), 15px) 0;
    }
@@ -214,6 +216,10 @@
      margin-bottom: 3rem;
      padding-bottom: 3rem;
      align-items: start;
+   } 
+
+   .premium-features {
+     padding-left: clamp(0px, calc(0px + (100vw - 300px) * 1), 17px);
    }
 
    /* ----------------------------------- ​‌‌‌⁡⁢⁣⁣𝗘𝗻𝗱 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀⁡​ ----------------------------------- */
