@@ -119,8 +119,6 @@
      gap: clamp(9px, calc(9px + (100vw - 360px) * 0.1), 11px);
    }
 
-   #container-left{display: none;}                                                                                                                     
-
    /* Wrapper Card on dark background */
    .index #container-right .wrapper {
      width: clamp(80px, calc(min(26vw, 90px) + max(0px, (100vw - 360px)) * 0.24), 105px);
