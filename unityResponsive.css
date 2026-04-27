@@ -4,6 +4,13 @@
 
 /* Mobile (max-width 1000x) */
 @media (max-width: 1000px) {
+  body {
+   background-color: rgb(11, 19, 30);
+  }
+
+  .parent-container {
+    height: 100vh;
+  }
 
   /*  Star 2 side, but close */
   #tempContent.night::after {
@@ -36,6 +43,7 @@
 
   /* Container - Left margin Set  */
   #container-left {
+
     margin: 0%;
   }
 
@@ -201,7 +209,6 @@
 
   /* ------------------------------------------------------- ⁡⁣⁣⁢​‌‌‌𝗙𝗲𝗮𝘁𝘂𝗿𝗲​⁡ ------------------------------------------------------- */
 
-
   /* Features  Weather Metric Sectoin gap & padding set  */
   #weatherMetrics {
     padding-top: 1rem;
@@ -272,7 +279,7 @@
   }
 
   /* ------------------------------------------------------- ⁡⁢⁣⁣​‌‌‌𝗘𝗻𝗱 𝗦𝘁𝗼𝗿𝗲 𝗖𝗶𝘁𝘆​⁡ -------------------------------------------------------*/
- 
+
   /* -------------------------------------------------------⁣⁢​‌‌‌ ⁡⁣⁣⁢𝗪𝗼𝗿𝗹𝗱 𝗠𝗮𝗽​⁡ ------------------------------------------------------- */
   /* Parent Container world Map height set  */
   .world-map #worldMap {

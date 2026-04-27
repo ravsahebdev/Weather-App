@@ -1,7 +1,4 @@
  @media (min-width: 1000px) and (max-height:550px) {
-     html {
-         font-size: 15.6px;
-     }
 
      #container-left #main-section {
          overflow-y: auto;
@@ -25,8 +22,8 @@
 
      /* ----------------- ⁡⁣⁢⁣​‌‍‌𝗔𝗱𝘃𝗶𝘀𝗼𝗿𝘆 𝗦𝗲𝗰𝘁𝗶𝗼𝗻​⁡ ----------------- */
 
-     #advisory-section .conditionsData { 
-         padding: .2rem 0; 
+     #advisory-section .conditionsData {
+         padding: .2rem 0;
      }
 
      /* Condiction-data data-index  */
@@ -42,12 +39,58 @@
  }
 
  @media (min-width: 1000px) and (max-width: 1200px) {
+
+     #advisory-section .data-index .solid-icons {
+         width: 28%;
+     }
+
      .parent-container {
          width: 100%;
          gap: 5px;
      }
 
      #first-container {
-         width: 83px;
+         width: 80px;
+     }
+
+     #second-container {
+         width: 89%;
+     }
+
+     #container-right {
+         width: 35.5%;
+     }
+
+     #forecast #showForecast .wrapper {
+         width: min(27.7%, 95px);
+     }
+
+
+ }
+
+ @media (min-width: 1000px) and (min-height: 600px) {
+     #container-right #forecast #showForecast {
+         row-gap: min(2vh, 15px);
+     }
+ 
+     #container-right #weekly-forecast {
+         gap: min(1vh, 8px);
+     }
+
+     #container-right #weekly-forecast #showWeeklyFor {
+         /* gap: min(1vh, 12px); */
+     }
+
+ }
+
+ @media (min-width: 1000px) {}
+
+ @media (min-width: 1200px) and (min-height: 700px) {
+     /* body {
+         background-color: black;
+     } */
+
+     .parent-container {
+         border-radius: .8rem;
      }
  }

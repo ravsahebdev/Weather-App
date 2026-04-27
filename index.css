@@ -2,20 +2,19 @@
 
 /* ------------------ ⁡⁣⁢⁣​‌‍‌𝗠𝗮𝗶𝗻 - 𝗦𝗲𝗰𝘁𝗶𝗼𝗻​⁡ ------------------ */
 #main-section {
-  margin-top: 0.1rem;
-  margin-bottom: -0.2rem;
-  gap: 0.2rem;
+  padding-top: min(1.5vh, 16px);
 }
 
+/*  */
 /* -----------  ⁡⁣⁢⁣​‌‍‌𝗔𝗱𝘃𝗶𝘀𝗼𝗿𝘆 - 𝗦𝗲𝗰𝘁𝗶𝗼𝗻​⁡   ----------- */
 
 #container-left #advisory-section {
-  height: 34%;
+  height: min(34.4%, 200px);
 }
 
 /* Wrapper */
 #advisory-section .conditionsData {
-  height: 98%;
+  height: min(98%, 180px);
   width: 97%;
   padding: .1rem 0;
   justify-content: space-around;
@@ -25,7 +24,7 @@
 /* EACH CARD */
 #advisory-section .conditionsData .data-index {
   width: 48%;
-  height: 44%;
+  height: min(44%, 77px);
   display: flex;
   gap: 1rem;
   background: rgba(255, 255, 255, 0.06);
@@ -39,9 +38,9 @@
    ICON DESIGN 
 ---------------------------- */
 #advisory-section .conditionsData .solid-icons {
-  width: 20%;
+  width: 25%;
   height: 78%;
-  margin-left: 0.71rem;
+  margin-left: 0.63rem;
   background: rgba(0, 140, 255, 0.15);
   border-radius: .8rem;
   border: 1px solid rgba(0, 140, 255, 0.25);
@@ -92,7 +91,7 @@
 /* ---------------- ⁡⁣⁢⁣​‌‍‌𝗔𝗶𝗿 𝗖𝗼𝗻𝗱𝗶𝘁𝗶𝗼𝗻 - 𝗦𝗲𝗰𝘁𝗶𝗼𝗻​⁡ ---------------- */
 
 .index #air-condition {
-  height: 30%;
+  height: min(30%, 195px);
 }
 
 /* Air condiction section headding  */
@@ -146,7 +145,7 @@
   gap: .625rem;
   justify-content: start;
 }
- 
+
 /* ConditionsData data-index fa-solid = i  */
 .conditionsData .data-index i {
   font-size: 1.1rem;
@@ -173,13 +172,13 @@
 
 /* -------------------- ⁡⁣⁢⁣​‌‍‌𝗖𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿 𝗿𝗶𝗴𝗵𝘁​⁡ ---------------------- */
 .index #container-right {
-  gap: 1.2rem;
+  gap: clamp(15px, 3.4vh, 30px);
 }
 
 /* ⁡⁣⁣⁢𝗠𝗔𝗜𝗡 𝗙𝗢𝗥𝗘𝗖𝗔𝗦𝗧 𝗔𝗥𝗘𝗔⁡ */
 .index #forecast {
   gap: 0.8rem;
-  padding-top: .5rem;
+  padding-top: min(1.4vh, 11px);
   width: 100%;
 }
 
@@ -265,8 +264,7 @@
 
 /* Show-weekly-forecast section  */
 .index #container-right #showWeeklyFor {
-  gap: .1rem;
-  padding-top: 0.4rem;
+  gap: min(.3vh, 10px);
 }
 
 /* //////////////////////////////////////////////////////////////////// */

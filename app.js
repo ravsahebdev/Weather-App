@@ -319,51 +319,50 @@ function pickMainAdvice(data) {
     : (month >= 3 && month <= 5) ? 'summer'
       : (month >= 11 || month <= 2) ? 'winter' : 'spring';
 
-  if (aqi !== null && aqi >= 201) return { level: 'warning', primary: 'Air quality very poor', secondary: 'Avoid going outside' };
-  if (feels !== null && feels >= 40) return { level: 'warning', primary: 'Heat alert', secondary: 'Avoid long exposure to sun' };
-  if (precip !== null && precip >= 70) return { level: 'warning', primary: 'Heavy rain expected', secondary: 'Carry an umbrella' };
-  // if (precip !== null && precip >= 70) return { level: 'warning', primary: 'Heavy rain expected', secondary: 'Carry an umbrella and avoid low-lying roads' };
-  if (wind !== null && wind >= 60) return { level: 'warning', primary: 'Very strong winds', secondary: 'Secure loose items outside' };
+  if (aqi !== null && aqi >= 201) return { level: 'warning', primary: 'Very poor air', secondary: 'Avoid outdoors' };
+  if (feels !== null && feels >= 40) return { level: 'warning', primary: 'Heat alert', secondary: 'Avoid sun exposure' };
+  if (precip !== null && precip >= 70) return { level: 'warning', primary: 'Heavy rain', secondary: 'Carry an umbrella' };
+  if (wind !== null && wind >= 60) return { level: 'warning', primary: 'Strong winds', secondary: 'Secure items' };
 
   if (season === 'monsoon') {
     if (precip === null) return vis !== null && vis < 2
-      ? { level: 'caution', primary: 'Low visibility', secondary: 'Drive carefully' }
-      : { level: 'info', primary: 'No rain data', secondary: 'Check hourly forecast' };
-    if (precip < 20) return { level: 'info', primary: 'Low chance of rain', secondary: 'No umbrella needed' };
-    if (precip < 50) return { level: 'caution', primary: 'Moderate chance of rain', secondary: 'Carry umbrella' };
-    return { level: 'warning', primary: 'High chance of rain', secondary: 'Carry umbrella' };
+      ? { level: 'caution', primary: 'Low visibility', secondary: 'Drive safe' }
+      : { level: 'info', primary: 'No rain data', secondary: 'Check forecast' };
+    if (precip < 20) return { level: 'info', primary: 'Low rain chance', secondary: 'No umbrella needed' };
+    if (precip < 50) return { level: 'caution', primary: 'Rain possible', secondary: 'Carry umbrella' };
+    return { level: 'warning', primary: 'High rain chance', secondary: 'Carry umbrella' };
   }
   if (season === 'summer') {
-    if (uv !== null && uv >= 8) return { level: 'warning', primary: 'High UV', secondary: 'Use sunscreen and hat' };
+    if (uv !== null && uv >= 8) return { level: 'warning', primary: 'High UV', secondary: 'Use sunscreen' };
     if (feels !== null && feels >= 33) return { level: 'caution', primary: 'Hot weather', secondary: 'Stay hydrated' };
     if (precip !== null && precip >= 50) return { level: 'caution', primary: 'Rain likely', secondary: 'Carry umbrella' };
-    return { level: 'info', primary: 'Good day to go out', secondary: 'Wear light clothes' };
+    return { level: 'info', primary: 'Good for outdoors', secondary: 'Wear light clothes' };
   }
   if (season === 'winter') {
-    if (feels !== null && feels <= 2) return { level: 'warning', primary: 'Extreme cold', secondary: 'Stay indoors if possible' };
+    if (feels !== null && feels <= 2) return { level: 'warning', primary: 'Extreme cold', secondary: 'Stay indoors' };
     if (feels !== null && feels <= 10) return { level: 'warning', primary: 'Very cold', secondary: 'Wear heavy jacket' };
-    if (feels !== null && feels <= 15) return { level: 'caution', primary: 'Chilly weather', secondary: 'Wear warm jacket' };
+    if (feels !== null && feels <= 15) return { level: 'caution', primary: 'Slight cold', secondary: 'Wear warm jacket' };
     if (feels !== null && feels <= 20) return { level: 'info', primary: 'Cool weather', secondary: 'Wear full sleeves' };
-    if (precip !== null && precip > 40) return { level: 'caution', primary: 'Chance of rain', secondary: 'Carry umbrella' };
-    return { level: 'info', primary: 'Pleasant day', secondary: 'Light layers ok' };
+    if (precip !== null && precip > 40) return { level: 'caution', primary: 'Rain possible', secondary: 'Carry umbrella' };
+    return { level: 'info', primary: 'Nice weather', secondary: 'Light layers' };
   }
   if (precip !== null) {
-    if (precip < 20) return { level: 'info', primary: 'Low chance of rain', secondary: 'Plan outdoor activities' };
-    if (precip < 50) return { level: 'caution', primary: 'Moderate chance', secondary: 'Keep umbrella handy' };
-    return { level: 'warning', primary: 'High chance of rain', secondary: 'Expect showers' };
+    if (precip < 20) return { level: 'info', primary: 'Low rain chance', secondary: 'Plan outdoors' };
+    if (precip < 50) return { level: 'caution', primary: 'Moderate chance', secondary: 'Keep umbrella' };
+    return { level: 'warning', primary: 'High rain chance', secondary: 'Expect showers' };
   }
   return { level: 'info', primary: 'Weather looks OK', secondary: 'Check detailed forecast' };
 }
 
 function getClothingAdvice(data) {
   const temp = data.feelsLike || data.temp;
-  if (temp >= 30) return { primary: 'Light Cotton', secondary: 'Stay cool and comfortable' };
-  if (temp >= 25) return { primary: 'Cotton/T-Shirt', secondary: 'Comfortable for outdoors' };
+  if (temp >= 30) return { primary: 'Light Cotton', secondary: 'Stay cool' };
+  if (temp >= 25) return { primary: 'Cotton/T-Shirt', secondary: 'Outdoor friendly' };
   if (temp >= 20) return { primary: 'Full Sleeves', secondary: 'Light warm clothing' };
-  if (temp >= 15) return { primary: 'Light Jacket', secondary: 'Layer up for comfort' };
+  if (temp >= 15) return { primary: 'Light Jacket', secondary: 'Layer up' };
   if (temp >= 10) return { primary: 'Warm Jacket', secondary: 'Wear warm clothes' };
-  if (temp >= 5) return { primary: 'Heavy Jacket', secondary: 'Stay warm with layers' };
-  return { primary: 'Thermal Wear', secondary: 'Very cold - full protection' };
+  if (temp >= 5) return { primary: 'Heavy Jacket', secondary: 'Layer up warm' };
+  return { primary: 'Thermal Wear', secondary: 'Very cold, stay warm' };
 }
 
 function getAirQualityAdvice(data) {

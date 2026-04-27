@@ -13,7 +13,9 @@ html,
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(9, 9, 9);
+  /* background-color: rgb(9, 9, 9); */
+  /* background-color: rgb(4, 10, 19); */
+  background-color: rgb(3, 8, 15);
   height: 100%;
   width: 100%;
   scrollbar-width: none;
@@ -79,8 +81,8 @@ body,
 /* Parent - Container  */
 .parent-container {
   background-color: rgb(11, 19, 30);
-  width: 90%;
-  height: 100vh;
+  width: min(90%, 1300px);
+  height: min(100vh, 700px);
   gap: 0.938rem;
   scrollbar-width: none;
 }
@@ -214,12 +216,11 @@ input:focus-visible {
 #main-section {
   width: 100%;
   height: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 /* Main Section Content div  */
 #main-section .mainContent {
-  height: 32%;
   width: 100%;
   border-radius: 1rem;
 }
@@ -235,6 +236,7 @@ input:focus-visible {
   position: relative;
   overflow: hidden;
   user-select: none;
+  height: min(32%, 195px);
 }
 
 #temprature .tepratureBack {
@@ -281,7 +283,7 @@ input:focus-visible {
 
 /* Temprature Image div  */
 #temprature #tempContent {
-  width: 30%;
+  width: min(30%, 180px);
 }
 
 /* Temprature Image  */
@@ -411,8 +413,6 @@ input:focus-visible {
   }
 }
 
-/*         ///////////////////////////////////////////////////////////////////////////////////        */
-
 /* -----------------------------------------------  ⁡⁣⁢⁣​‌‍‌𝗥𝗶𝗴𝗵𝘁 - 𝗖𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿​⁡   ------------------------------------------- */
 #container-right {
   width: 35%;
@@ -480,6 +480,7 @@ input:focus-visible {
 #container-right #weekly-forecast {
   width: 100%;
   height: auto;
+  gap: min(.8vh, 10px);
 }
 
 /* Weekly forecast & Today For Headding  */

@@ -10,7 +10,6 @@
 
     /* ⁡⁣⁢⁣​‌‍‌𝗣𝗮𝗿𝗲𝗻𝘁 𝗖𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿​⁡  */
     .parent-container {
-        justify-content: center;
         gap: min(2.7%, max(0%, 2.7% + (100vw - 600px) * -0.02));
     }
 
@@ -401,13 +400,18 @@
 
     /* ----------------- ​‌‌‌⁡⁣⁣⁢𝗙𝗲𝗮𝘁𝘂𝗿𝗲 𝗣𝗮𝗴𝗲⁡​ ----------------- */
     #weatherMetrics {
-        gap: .8rem;
-        column-gap: 1.1rem;
+        gap: 1.2rem;
+        column-gap: 1.8rem;
     }
 
     /* Metric cards */
     .metricCard {
-        width: 47.5%;
+        width: 46%;
+    }
+
+    .metricWrap {
+        gap: 1rem;
+        padding-left: .6rem;
     }
 
     /* ----------------- ⁡⁣⁣⁢​‌‌‌𝗦𝗲𝘁𝘁𝗶𝗻𝗴 𝗣𝗮𝗴𝗲​⁡  ----------------- */

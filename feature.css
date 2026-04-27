@@ -1,11 +1,15 @@
 /* -----------------------------------------------------  ​‌‌‌⁡⁣⁢⁣‍𝗙𝗲𝗮𝘁𝘂𝗿𝗲⁡​   ----------------------------------------------------- */
 
+#main-section {
+  padding-top: min(2vh, 16px);
+  /* justify-content: space-evenly; */
+}
+
 /* ------------------- ​‌‍‌⁡⁣⁢⁣𝗧𝗲𝗺𝗽𝗿𝗮𝘁𝘂𝗿𝗲 - 𝗦𝗲𝗰𝘁𝗶𝗼𝗻⁡​ ------------------- */
 
 #container-left #temprature {
   height: 36%;
 }
-
 
 /* ----------- ​‌‍‌⁡⁣⁢⁣𝗪𝗲𝗮𝘁𝗵𝗲𝗿 𝗠𝗲𝘁𝗿𝗶𝗰 𝗰𝗼𝗻𝘁𝗮𝗶𝗻𝗲𝗿⁡​ ---------- */
 #weatherMetrics {
@@ -13,7 +17,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: .4rem;
-  
+
 }
 
 /* Metric cards */
@@ -27,7 +31,7 @@
 /* metric wraper bitween icon & text  */
 .metricWrap {
   display: flex;
-  gap: 0.58rem;
+  gap: .58rem;
   padding-left: 0.312rem;
 }
 
