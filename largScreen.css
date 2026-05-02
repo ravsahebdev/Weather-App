@@ -5,7 +5,11 @@
          scrollbar-width: none;
          height: 100%;
          gap: .5rem;
-         margin-top: .5rem;
+     }
+
+     #weatherMetrics{
+        margin-top: .45rem;
+        row-gap: .6rem;
      }
 
      #main-section .mainContent {
@@ -72,15 +76,14 @@
      #container-right #forecast #showForecast {
          row-gap: min(2vh, 15px);
      }
- 
+
      #container-right #weekly-forecast {
          gap: min(1vh, 8px);
      }
 
      #container-right #weekly-forecast #showWeeklyFor {
-         /* gap: min(1vh, 12px); */
+         gap: min(1.2vh, 15px);
      }
-
  }
 
  @media (min-width: 1000px) {}

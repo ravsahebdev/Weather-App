@@ -219,7 +219,6 @@
    .premium-features {
      padding-left: clamp(0px, calc(0px + (100vw - 300px) * 1), 17px);
    }
-
    /* ----------------------------------- ​‌‌‌⁡⁢⁣⁣𝗘𝗻𝗱 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀⁡​ ----------------------------------- */
 
    /* -----------------------------------⁣⁣⁢​‌‌‌ 𝗪𝗼𝗿𝗹𝗱 𝗠𝗮𝗽​⁡ ----------------------------------- */
@@ -278,11 +277,6 @@
    .responsive-feature {
      min-height: 93vh;
      margin-bottom: 0%;
-   }
-
-   /* Features  Weather Metric Sectoin gap & padding set  */
-   #weatherMetrics {
-     padding-top: 1rem;
    }
  }
 

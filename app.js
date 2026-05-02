@@ -180,8 +180,6 @@ export async function getWeather(cityName) {
     const data = await currentRes.json();
     const forecastData = await forecastRes.json();
 
-    console.log(data);
-
     currentIsDay = data.current.is_day;
     if (tempContent) {
       tempContent.classList.remove("night", "sunny");
@@ -208,7 +206,6 @@ export async function getWeather(cityName) {
 
 
   } catch (err) {
-    console.log("❌ WeatherAPI failed:", err);
     currentIsDay = null;
     if (rain) rain.style.color = "white";
     if (tempContent) tempContent.classList.remove("night", "sunny");
@@ -278,7 +275,7 @@ function updateAdvisorySection(data, forecastData) {
     airQualitySub: document.getElementById('airQualitySub'),
     aqiNumber: document.getElementById('aqiNumber'),
   };
-  if (!el.goOutPrimary) { console.log('Advisory section not found'); return; }
+  if (!el.goOutPrimary) { return; }
 
   try {
     const aqiResult = getMultiPollutantAQI(data);

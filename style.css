@@ -82,7 +82,7 @@ body,
 .parent-container {
   background-color: rgb(11, 19, 30);
   width: min(90%, 1300px);
-  height: min(100vh, 700px);
+  height: min(100vh, 670px);
   gap: 0.938rem;
   scrollbar-width: none;
 }

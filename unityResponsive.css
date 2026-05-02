@@ -5,7 +5,7 @@
 /* Mobile (max-width 1000x) */
 @media (max-width: 1000px) {
   body {
-   background-color: rgb(11, 19, 30);
+    background-color: rgb(11, 19, 30);
   }
 
   .parent-container {
@@ -27,7 +27,8 @@
 
   /* ------------------------       ​‌‌‌⁡⁢⁣⁢𝗗𝗶𝘀𝗽𝗹𝗮𝘆 𝗡𝗼𝗻𝗲⁡​      ------------------------ */
   .storeCity #container-right,
-  .responsive-feature #container-right {
+  .responsive-feature #container-right,
+  #um-img {
     display: none;
   }
 
@@ -43,7 +44,6 @@
 
   /* Container - Left margin Set  */
   #container-left {
-
     margin: 0%;
   }
 
@@ -68,6 +68,7 @@
   /* Second - Container Main Sectoin  */
   #main-section {
     margin-top: clamp(.6rem, 1.5vh, 11px);
+    padding: 0;
     gap: clamp(14px, 2.15vh, 17px);
   }
 
@@ -85,11 +86,6 @@
   #temprature #tempContent img {
     width: clamp(5.625rem, calc(5.625rem + (100vw - 900px) * 0.044), 6.4rem);
     height: clamp(5.625rem, calc(5.625rem + (100vw - 900px) * 0.044), 6.4rem);
-  }
-
-  /* Umbrella Imge = div display none-set */
-  #um-img {
-    display: none;
   }
 
   /* ------------------------------------------------------- ⁡⁣⁣⁢​‌‌‌‍𝗜𝗡𝗗𝗘𝗫​⁡ ------------------------------------------------------- */
@@ -190,7 +186,7 @@
   /* Forecast - Section gap & margin set  */
   .index #forecast {
     gap: clamp(12px, 1.7vh, 16px);
-    padding-top: clamp(5px, 1.1vh, 8px);
+    padding-top: clamp(5px, 1.1vh, 8.5px);
   }
 
   /* Hover – wrapper dark mode feel */
@@ -208,27 +204,27 @@
   /* ------------------------------------------------------- ⁡⁢⁣⁣​‌‌‌𝗘𝗻𝗱 𝗜𝗻𝗱𝗲𝘅​⁡ ------------------------------------------------------- */
 
   /* ------------------------------------------------------- ⁡⁣⁣⁢​‌‌‌𝗙𝗲𝗮𝘁𝘂𝗿𝗲​⁡ ------------------------------------------------------- */
-
   /* Features  Weather Metric Sectoin gap & padding set  */
   #weatherMetrics {
-    padding-top: 1rem;
+    padding-top: .8rem;
+    gap: .4rem;
   }
 
   /* Metric-Card width & padding set  */
   .metricCard {
     width: 48.5%;
-    padding: 1.1rem 0rem 1.1rem 0.5rem;
-    margin-top: 2px;
+    padding: 1.05rem 0rem 1.1rem 0.5rem;
+    margin-top: 5px;
   }
 
   /* Metric-Card Metric-Info P font size set  */
   .metricInfo p {
-    font-size: clamp(.83rem, 2.1vh, .9rem);
+    font-size: clamp(.85rem, 2.1vh, .9rem);
   }
 
   /* Metric Card h3 font size set  */
   .metricCard h3 {
-    font-size: clamp(.95rem, 2.6vh, 1.1rem);
+    font-size: clamp(.97rem, 2.6vh, 1.1rem);
   }
 
   /* ------------------------------------------------------- ​‌‌‌⁡⁢⁣⁣𝗘𝗻𝗱 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀⁡​ ------------------------------------------------------- */
