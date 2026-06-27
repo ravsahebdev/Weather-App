@@ -1,8 +1,25 @@
 // canvasAnimation.js
+// ✅ FIXED: Module-level state to track and cancel previous animation
+let _currentAnimationId = null;
+let _currentResizeObserver = null;
+
 export function initSkyAnimation(containerId, isDay) {
     console.log(`🌙 Sky Animation Started - isDay: ${isDay}`);
-    console.log("☀️ DAY ANIMATION STARTED"); // 👈 DEBUG LINE
-    // Wait for page to fully load
+
+    // ✅ FIX #1: Cancel previous animation loop before starting new one
+    if (_currentAnimationId !== null) {
+        cancelAnimationFrame(_currentAnimationId);
+        _currentAnimationId = null;
+        console.log("🛑 Previous animation loop cancelled");
+    }
+
+    // ✅ FIX #2: Disconnect previous ResizeObserver before creating new one
+    if (_currentResizeObserver !== null) {
+        _currentResizeObserver.disconnect();
+        _currentResizeObserver = null;
+        console.log("🛑 Previous ResizeObserver disconnected");
+    }
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', () => {
             createSkyCanvas(containerId, isDay);
@@ -19,7 +36,7 @@ function createSkyCanvas(containerId, isDay) {
         return;
     }
 
-    // Remove existing canvas if any
+    // ✅ FIX #3: Remove existing canvas (detached DOM cleanup)
     const existingCanvas = document.getElementById('skyCanvas');
     if (existingCanvas) {
         existingCanvas.remove();
@@ -29,7 +46,6 @@ function createSkyCanvas(containerId, isDay) {
     const canvas = document.createElement('canvas');
     canvas.id = 'skyCanvas';
 
-    // CSS styling
     Object.assign(canvas.style, {
         position: 'absolute',
         top: '0',
@@ -38,18 +54,18 @@ function createSkyCanvas(containerId, isDay) {
         height: '100%',
         zIndex: '1',
         pointerEvents: 'none',
-        borderRadius: 'inherit' // Container ki border-radius follow karega
+        borderRadius: 'inherit'
     });
 
-    // Container ko relative banao
     container.style.position = 'relative';
     container.appendChild(canvas);
 
-    // Resize observer for perfect sizing
+    // ✅ FIX #2: Save ResizeObserver reference so it can be disconnected later
     const resizeObserver = new ResizeObserver(() => {
         resizeCanvas(canvas);
     });
     resizeObserver.observe(container);
+    _currentResizeObserver = resizeObserver; // 👈 Track it globally
 
     // Start animation based on day/night
     if (isDay === 1) {
@@ -60,7 +76,6 @@ function createSkyCanvas(containerId, isDay) {
 }
 
 function resizeCanvas(canvas) {
-    // ✅ Safety check add karo
     if (!canvas || !canvas.parentElement) {
         console.warn("❌ Canvas or parent not found for resize");
         return;
@@ -69,7 +84,6 @@ function resizeCanvas(canvas) {
     const container = canvas.parentElement;
     const rect = container.getBoundingClientRect();
 
-    // ✅ Additional safety
     if (!rect || rect.width === 0 || rect.height === 0) {
         console.warn("❌ Container has zero size");
         return;
@@ -86,11 +100,10 @@ function resizeCanvas(canvas) {
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 }
 
-// 🌙 NIGHT ANIMATION (Your original star animation)
+// 🌙 NIGHT ANIMATION
 function startNightAnimation(canvas) {
     const ctx = canvas.getContext('2d');
- 
-    // Parameters
+
     const STAR_COUNT = 80;
     const LAYERS = 3;
     const SHOOT_PROB = 0.002;
@@ -160,15 +173,19 @@ function startNightAnimation(canvas) {
         ctx.restore();
     }
 
-    // Main render loop
     let lastTime = 0;
     function frame(t) {
+        // ✅ FIX #1: Self-cancel if a newer animation has taken over
+        if (_currentAnimationId !== null && _currentAnimationId !== frameId) {
+            console.log("🛑 Night loop: stale frame detected, stopping");
+            return;
+        }
+
         const dt = Math.min(40, t - lastTime);
         lastTime = t;
         const w = canvas.width / (window.devicePixelRatio || 1);
         const h = canvas.height / (window.devicePixelRatio || 1);
 
-        // Night sky background
         const bg = ctx.createLinearGradient(0, 0, 0, h);
         bg.addColorStop(0, "#071227");
         bg.addColorStop(0.6, "#071a33");
@@ -176,7 +193,6 @@ function startNightAnimation(canvas) {
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, w, h);
 
-        // Moon glow
         ctx.save();
         const glow = ctx.createRadialGradient(w * 0.72, h * 0.18, 10, w * 0.72, h * 0.18, 120);
         glow.addColorStop(0, "rgba(140,170,255,0.14)");
@@ -185,7 +201,6 @@ function startNightAnimation(canvas) {
         ctx.fillRect(0, 0, w, h);
         ctx.restore();
 
-        // Draw stars
         for (let layer = 1; layer <= LAYERS; layer++) {
             for (let i = 0; i < stars.length; i++) {
                 const s = stars[i];
@@ -210,14 +225,12 @@ function startNightAnimation(canvas) {
                     ctx.fill();
                 }
 
-                // Move stars for parallax
                 s.x += s.vx * layer;
                 if (s.x < -10) s.x = w + 10;
                 if (s.x > w + 10) s.x = -10;
             }
         }
 
-        // Shooting stars
         if (shooting) {
             shooting.life++;
             const progress = shooting.life / shooting.maxLife;
@@ -255,17 +268,19 @@ function startNightAnimation(canvas) {
             if (Math.random() < SHOOT_PROB) spawnShootingStar();
         }
 
-        // Draw horizon
         drawHorizon(ctx, w, h);
 
-        requestAnimationFrame(frame);
+        // ✅ FIX #1: Save animation ID globally so it can be cancelled
+        _currentAnimationId = requestAnimationFrame(frame);
     }
 
-    // Initialize and start
     resizeCanvas(canvas);
     initStars();
     lastTime = performance.now();
-    requestAnimationFrame(frame);
+
+    // ✅ Bootstrap: get first ID and store globally
+    let frameId = requestAnimationFrame(frame);
+    _currentAnimationId = frameId;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -275,118 +290,103 @@ function startDayAnimation(canvas) {
     console.log("☀️ SMART SPEED CLOUDS - FAST LEFT, SLOW RIGHT");
 
     const ctx = canvas.getContext('2d');
-    let animationId;
 
-    // ONLY 4 CLOUDS - MEDIUM & SMALL-MEDIUM SIZES
     const clouds = [
-        { x: -80, y: 0.25, size: 45, speed: 0.05, opacity: 0.6 },   // Medium cloud
-        { x: -200, y: 0.3, size: 50, speed: 0.04, opacity: 0.7 },   // Medium cloud  
-        { x: -350, y: 0.35, size: 40, speed: 0.10, opacity: 0.65 }, // Small-medium cloud - FAST
-        { x: -500, y: 0.28, size: 48, speed: 0.045, opacity: 0.75 } // Medium cloud
+        { x: -80,  y: 0.25, size: 45, speed: 0.05,  opacity: 0.6  },
+        { x: -200, y: 0.3,  size: 50, speed: 0.04,  opacity: 0.7  },
+        { x: -350, y: 0.35, size: 40, speed: 0.10,  opacity: 0.65 },
+        { x: -500, y: 0.28, size: 48, speed: 0.045, opacity: 0.75 }
     ];
 
     function render(timestamp) {
         const w = canvas.width / (window.devicePixelRatio || 1);
         const h = canvas.height / (window.devicePixelRatio || 1);
 
-        // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // BEAUTIFUL SKY GRADIENT
         const bg = ctx.createLinearGradient(0, 0, 0, h);
-        bg.addColorStop(0, "#3B82F6");    // 👈 Top color - koi aur blue try karo
-        bg.addColorStop(0.6, "#7EB6FF");  // 👈 Middle color  
-        bg.addColorStop(0.85, "#A6D0FF"); // 👈 Horizon color
-        bg.addColorStop(1, "#C8E6FF");    // 👈 Bottom color
-
+        bg.addColorStop(0,    "#3B82F6");
+        bg.addColorStop(0.6,  "#7EB6FF");
+        bg.addColorStop(0.85, "#A6D0FF");
+        bg.addColorStop(1,    "#C8E6FF");
         ctx.fillStyle = bg;
         ctx.fillRect(0, 0, w, h);
 
-        // GREEN LAND AT BOTTOM
         const landHeight = h * 0.25;
         const landGradient = ctx.createLinearGradient(0, h - landHeight, 0, h);
-        landGradient.addColorStop(0, "#2f935b");
+        landGradient.addColorStop(0,   "#2f935b");
         landGradient.addColorStop(0.3, "#3CB371");
         landGradient.addColorStop(0.7, "#66CDAA");
-        landGradient.addColorStop(1, "#98FB98");
-
+        landGradient.addColorStop(1,   "#98FB98");
         ctx.fillStyle = landGradient;
         ctx.fillRect(0, h - landHeight, w, landHeight);
 
-        // ANIMATE 4 CLOUDS - SMART SPEED CONTROL
         clouds.forEach((cloud, index) => {
-            // SMART SPEED: FAST IN LEFT 30%, SLOW IN RIGHT 70%
             if (cloud.x < w * 0.3) {
-                // Left side (0% to 30%) - FAST SPEED (city name area)
-                cloud.x += cloud.speed * 1.8; // 80% faster
+                cloud.x += cloud.speed * 1.8;
             } else {
-                // Right side (30% to 100%) - NORMAL SLOW SPEED
                 cloud.x += cloud.speed;
             }
 
-            // Reset cloud when off screen
             if (cloud.x > w + 200) {
                 cloud.x = -200;
 
-                // NO OVERLAP - Ensure proper spacing
                 let newY;
                 let attempts = 0;
                 do {
-                    newY = 0.2 + Math.random() * 0.25; // TOP AREA ONLY
+                    newY = 0.2 + Math.random() * 0.25;
                     attempts++;
                 } while (isOverlapping(newY, index) && attempts < 10);
 
                 cloud.y = newY;
-                cloud.speed = 0.04 + Math.random() * 0.06; // 0.04 to 0.10
-                cloud.opacity = 0.5 + Math.random() * 0.3; // 0.5 to 0.8 opacity
-
-                // MEDIUM & SMALL-MEDIUM SIZES ONLY (40 to 50)
-                cloud.size = 40 + Math.random() * 10; // 40 to 50 size only
+                cloud.speed   = 0.04 + Math.random() * 0.06;
+                cloud.opacity = 0.5  + Math.random() * 0.3;
+                cloud.size    = 40   + Math.random() * 10;
             }
 
-            // Draw cloud at current position
             drawMovingCloud(ctx, cloud.x, h * cloud.y, cloud.size, cloud.opacity);
         });
     }
 
-    // CHECK FOR CLOUD OVERLAP
     function isOverlapping(newY, currentIndex) {
         for (let i = 0; i < clouds.length; i++) {
             if (i !== currentIndex) {
-                const otherCloud = clouds[i];
-                // Check if clouds are too close vertically
-                if (Math.abs(newY - otherCloud.y) < 0.08) {
-                    return true; // Overlap detected
-                }
+                if (Math.abs(newY - clouds[i].y) < 0.08) return true;
             }
         }
-        return false; // No overlap
+        return false;
     }
 
-    // MOVING CLOUD FUNCTION
     function drawMovingCloud(ctx, x, y, size, opacity) {
         ctx.save();
         ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-
         ctx.beginPath();
-        // Fluffy cloud shape
-        ctx.arc(x, y, size * 0.5, 0, Math.PI * 2);
+        ctx.arc(x,              y,              size * 0.5,  0, Math.PI * 2);
         ctx.arc(x + size * 0.3, y - size * 0.15, size * 0.4, 0, Math.PI * 2);
-        ctx.arc(x + size * 0.6, y, size * 0.45, 0, Math.PI * 2);
+        ctx.arc(x + size * 0.6, y,              size * 0.45, 0, Math.PI * 2);
         ctx.arc(x + size * 0.2, y + size * 0.1, size * 0.35, 0, Math.PI * 2);
         ctx.arc(x + size * 0.5, y + size * 0.08, size * 0.3, 0, Math.PI * 2);
         ctx.fill();
-
         ctx.restore();
     }
 
     function animate(timestamp) {
+        // ✅ FIX #1: Self-cancel if a newer animation has taken over
+        if (_currentAnimationId !== null && _currentAnimationId !== localId) {
+            console.log("🛑 Day loop: stale frame detected, stopping");
+            return;
+        }
         render(timestamp);
-        animationId = requestAnimationFrame(animate);
+        // ✅ FIX #1: Always update global ID with latest frame handle
+        localId = requestAnimationFrame(animate);
+        _currentAnimationId = localId;
     }
 
     resizeCanvas(canvas);
-    animate(0);
+
+    // ✅ Bootstrap: get first ID and store globally
+    let localId = requestAnimationFrame(animate);
+    _currentAnimationId = localId;
 
     console.log("✅ Smart Speed Clouds RUNNING");
 }

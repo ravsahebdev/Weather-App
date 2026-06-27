@@ -401,6 +401,10 @@ function showAdvisoryError(el) {
 export async function defaultWeather() { await getWeather("Pune"); }
 
 export function initNavigation() {
+  // ✅ Guard: agar already initialized hai toh skip karo
+  if (initNavigation._done) return;
+  initNavigation._done = true;
+
   const links = { homeIcon: "index.html", cityIcon: "storeCity.html", mapIcon: "woldMap.html", settingIcon: "setting.html" };
   Object.entries(links).forEach(([id, url]) => {
     const ele = document.getElementById(id);
