@@ -108,8 +108,10 @@ If you're a recruiter or a client exploring this project — I hope it gives you
 
 ## 👨‍💻 Author
 
-**Ravsaheb Dev**
+**Ravsaheb Vagre**
+
 🌐 GitHub: [github.com/ravsahebdev](https://github.com/ravsahebdev)
+
 💼 LinkedIn: [linkedin.com/in/ravsaheb-vagre-47b86a35a](https://www.linkedin.com/in/ravsaheb-vagre-47b86a35a)
 
 ---
